@@ -20,7 +20,11 @@ class AlbumService {
     typealias AlbumsCompletion = ([Album], DataManagerError?) -> ()
     typealias ServiceDataCompletion = (Any, DataManagerError?) -> ()
     
-    private init() {
+//    private init() {
+//    }
+//
+    // When testing, use this init:
+    init() {
     }
     
     func fetchAlbumsForUser(userID: Int, completionHandler: @escaping AlbumsCompletion) {

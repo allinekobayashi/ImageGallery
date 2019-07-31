@@ -64,26 +64,40 @@ class AlbumServiceTests: XCTestCase {
     }
     
     func testFetchAlbumsForUser() {
+        //1. Given
+        let expectation = self.expectation(description: "Async call")
+        var result: [Album] = []
         
-        //1. Given userID = 1 When
-        AlbumServiceMock.shared.fetchAlbumsForUser(userID: 1, completionHandler: { albums, error in
-            //3. Then
-            XCTAssertNil(error)
-            XCTAssertEqual(albums.count, 2)
-            
-            XCTAssertEqual(albums[0].id, 1)
-            XCTAssertEqual(albums[0].title, "1 - quidem molestiae enim")
-            XCTAssertEqual(albums[0].photos.count, 0)
-            
-            XCTAssertEqual(albums[1].id, 2)
-            XCTAssertEqual(albums[1].title, "2 - sunt qui excepturi placeat culpa")
-            XCTAssertEqual(albums[1].photos.count, 0)
-        })
+        //2. When
+        AlbumServiceMock.sharedMock.fetchAlbumsForUser(userID: 1) { albums, error in
+            result = albums
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+        //3. Then
+        XCTAssertEqual(result.count, 2)
+                
+        XCTAssertEqual(result[0].id, 1)
+        XCTAssertEqual(result[0].title, "1 - quidem molestiae enim")
+        XCTAssertEqual(result[0].photos.count, 0)
+                
+        XCTAssertEqual(result[1].id, 2)
+        XCTAssertEqual(result[1].title, "2 - sunt qui excepturi placeat culpa")
+        XCTAssertEqual(result[1].photos.count, 0)
+        
+        
     }
     
 }
 
 class AlbumServiceMock: AlbumService {
+    static let sharedMock = AlbumServiceMock()
+    
+    override init() {
+    }
+    
     override func fetchData(from urlString: String, completionHandler: @escaping ServiceDataCompletion) {
         var mockFile: String?
         var mockFileType: String?
@@ -94,11 +108,15 @@ class AlbumServiceMock: AlbumService {
         case "\(baseURLString)/photos?albumId=1":
             mockFile = "Photos"
             mockFileType = "json"
-        
         default:
             mockFile = nil
         }
-
+        
+        guard mockFile != nil else {
+            completionHandler([], .FailedRequestFromServer)
+            return
+        }
+        
         let testBundle = Bundle(for: type(of: self))
         
         if let path = testBundle.path(forResource: mockFile, ofType: mockFileType) {
