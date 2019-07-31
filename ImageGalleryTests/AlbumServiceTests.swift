@@ -19,8 +19,6 @@ class AlbumServiceTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    
-    
     func testProcessDataForAlbum() {
         //1. Given
         let albumFromJson1 = AlbumElement(userID: 10, id: 1, title: "Album test 1")
@@ -65,7 +63,7 @@ class AlbumServiceTests: XCTestCase {
     
     func testFetchAlbumsForUser() {
         //1. Given
-        let expectation = self.expectation(description: "Async call")
+        let expectation = self.expectation(description: "Async call Albums")
         var result: [Album] = []
         
         //2. When
@@ -86,8 +84,35 @@ class AlbumServiceTests: XCTestCase {
         XCTAssertEqual(result[1].id, 2)
         XCTAssertEqual(result[1].title, "2 - sunt qui excepturi placeat culpa")
         XCTAssertEqual(result[1].photos.count, 0)
+    }
+    
+    func testFetchPhotosPerAlbum() {
+        //1. Given
+        let expectation = self.expectation(description: "Async call Photos")
+        var result: [Photo] = []
         
+        //2. When
+        AlbumServiceMock.sharedMock.fetchPhotosPerAlbum(albumID: 1) { photos, error in
+            result = photos
+            expectation.fulfill()
+        }
         
+        waitForExpectations(timeout: 10)
+        
+        //3. Then
+        XCTAssertEqual(result.count, 3)
+        
+        XCTAssertEqual(result[0].id, 1)
+        XCTAssertEqual(result[0].title, "accusamus")
+        XCTAssertEqual(result[0].imageURL, "https://via.placeholder.com/150/92c952")
+        
+        XCTAssertEqual(result[1].id, 2)
+        XCTAssertEqual(result[1].title, "reprehenderit")
+        XCTAssertEqual(result[1].imageURL, "https://via.placeholder.com/150/771796")
+        
+        XCTAssertEqual(result[2].id, 3)
+        XCTAssertEqual(result[2].title, "officia")
+        XCTAssertEqual(result[2].imageURL, "https://via.placeholder.com/150/24f355")
     }
     
 }

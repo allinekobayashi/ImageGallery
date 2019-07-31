@@ -155,8 +155,8 @@
 		FACAE99122E842EA005691FA /* ImageGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
-				FACD2F0922F172CC0037D230 /* Extension */,
 				FACAE99422E842EA005691FA /* Info.plist */,
+				FACD2F0922F172CC0037D230 /* Extension */,
 				FACAE99222E842EA005691FA /* ImageGalleryTests.swift */,
 				FAD4A0CF22EE294100DF7FBB /* DataManagerTests.swift */,
 				FAD4A0D122EE296300DF7FBB /* AlbumsStorageTests.swift */,
