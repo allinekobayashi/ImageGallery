@@ -27,6 +27,14 @@ class AlbumService {
     init() {
     }
     
+    /*Another solution for caching: */
+//    private var session: URLSession {
+//        let config = URLSessionConfiguration.default
+//        config.requestCachePolicy = .returnCacheDataElseLoad
+//
+//        return URLSession(configuration: config)
+//    }
+        
     func fetchAlbumsForUser(userID: Int, completionHandler: @escaping AlbumsCompletion) {
         let albumURL = "\(baseURLString)/albums?userId=\(userID)"
 
