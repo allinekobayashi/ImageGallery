@@ -118,4 +118,30 @@ class AlbumService {
         }
     }
     
+    func createImageTask(imageURL: String, completionHandler: @escaping (UIImage?, DataManagerError?) -> ()) -> (URLSessionDataTask?) {
+        guard let url = URL(string: imageURL) else { return nil}
+        
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data, let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                error != nil ? completionHandler(nil, .FailedRequestFromServer) : completionHandler(nil, .Unknown)
+                return
+            }
+            
+            guard let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    completionHandler(nil, .InvalidResponseFromServer)
+                }
+                return
+            }
+            
+            self.imageCache.setObject(image, forKey: imageURL as NSString)
+            DispatchQueue.main.async {
+                completionHandler(image, nil)
+            }
+        }
+        
+        return task
+        
+    }
+    
 }
