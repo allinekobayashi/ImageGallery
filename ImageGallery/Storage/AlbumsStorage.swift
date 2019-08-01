@@ -17,28 +17,32 @@ class AlbumsStorage {
     }
     
     func save(_ album: Album) -> DataManagerError? {
-        encode(album)
+        encode1(album)
         return saveDatabaseContext()
     }
     
-    private func encode(_ album: Album){
+    func encode1(_ album: Album){
         let albumManagedObject = AlbumManagedObject(context: context)
         albumManagedObject.id = Int64(album.id)
         albumManagedObject.title = album.title
-        encode(album.photos, fromAlbum: albumManagedObject)
+        let _ = encode(album.photos, fromAlbum: albumManagedObject)
     }
     
-    private func encode(_ photos: [Photo], fromAlbum albumManagedObject: AlbumManagedObject ) {
+    func encode(_ photos: [Photo], fromAlbum albumManagedObject: AlbumManagedObject) -> [PhotoManagedObject] {
+        var arrayOfPhotos: [PhotoManagedObject] = []
         for photo in photos {
             let photoManagedObject = PhotoManagedObject(context: context)
             photoManagedObject.id = Int64(photo.id)
             photoManagedObject.title = photo.title
             photoManagedObject.imageURL = photo.imageURL
             photoManagedObject.addToAlbums(albumManagedObject)
+            
+            arrayOfPhotos.append(photoManagedObject)
         }
+        return arrayOfPhotos
     }
     
-    private func saveDatabaseContext() -> DataManagerError? {
+    func saveDatabaseContext() -> DataManagerError? {
         if context.hasChanges {
             do {
                 try context.save()
@@ -66,7 +70,7 @@ class AlbumsStorage {
         }
     }
     
-    private func decode(_ listOfAlbumManagedObject: [AlbumManagedObject]) -> [Album] {
+    func decode(_ listOfAlbumManagedObject: [AlbumManagedObject]) -> [Album] {
         var albums: [Album] = []
         var album: Album
         
@@ -80,7 +84,7 @@ class AlbumsStorage {
         return albums
     }
     
-    private func decode(_ setOfPhotos: NSSet) -> [Photo] {
+    func decode(_ setOfPhotos: NSSet) -> [Photo] {
         var photos: [Photo] = []
         for photo in setOfPhotos {
             if let photoManagedObject = photo as? PhotoManagedObject {
