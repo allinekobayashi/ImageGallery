@@ -15,6 +15,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     private var dataTask: URLSessionDataTask?
     
     func bindWith(albumItem: Photo, albumID: Int) {
+        
         self.albumID = albumID
         
         #warning("Strong reference cycle?")
@@ -24,7 +25,10 @@ class AlbumCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        task?.resume()
+        DispatchQueue.global(qos: .background).async {
+            task?.resume()
+        }
+        
         self.dataTask = task
     }
     

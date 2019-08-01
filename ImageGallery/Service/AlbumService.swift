@@ -66,6 +66,7 @@ class AlbumService {
     }
     
     func fetchData(from urlString: String, completionHandler: @escaping ServiceDataCompletion) {
+        
         guard let url = URL(string: urlString) else { return }
     
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
@@ -75,7 +76,10 @@ class AlbumService {
             }
             completionHandler(data, nil)
         }
-        task.resume()
+        
+        DispatchQueue.global(qos: .background).async {
+            task.resume()
+        }
         
     }
     

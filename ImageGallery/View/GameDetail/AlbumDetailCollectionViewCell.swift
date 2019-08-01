@@ -25,7 +25,10 @@ class AlbumDetailCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        task?.resume()
+        DispatchQueue.global(qos: .background).async {
+            task?.resume()
+        }
+//        task?.resume()
         self.dataTask = task
     }
     
