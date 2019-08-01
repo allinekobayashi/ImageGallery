@@ -26,7 +26,6 @@
 		FACAE9D122EB08C2005691FA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAE9D022EB08C2005691FA /* DataManager.swift */; };
 		FACAE9D322EB0988005691FA /* AlbumsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAE9D222EB0988005691FA /* AlbumsStorage.swift */; };
 		FACAE9D722EB5E6F005691FA /* AlbumElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAE9D622EB5E6F005691FA /* AlbumElement.swift */; };
-		FACD2F0B22F172EB0037D230 /* XCTestCaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACD2F0A22F172EB0037D230 /* XCTestCaseExtension.swift */; };
 		FAD0AC2922EEE8120049AEBC /* ImageGallery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAD0AC2722EEE8120049AEBC /* ImageGallery.xcdatamodeld */; };
 		FAD4A0D022EE294100DF7FBB /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4A0CF22EE294100DF7FBB /* DataManagerTests.swift */; };
 		FAD4A0D222EE296300DF7FBB /* AlbumsStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4A0D122EE296300DF7FBB /* AlbumsStorageTests.swift */; };
@@ -78,7 +77,6 @@
 		FACAE9D022EB08C2005691FA /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		FACAE9D222EB0988005691FA /* AlbumsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsStorage.swift; sourceTree = "<group>"; };
 		FACAE9D622EB5E6F005691FA /* AlbumElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumElement.swift; sourceTree = "<group>"; };
-		FACD2F0A22F172EB0037D230 /* XCTestCaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestCaseExtension.swift; sourceTree = "<group>"; };
 		FAD0AC2822EEE8120049AEBC /* ImageGallery.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageGallery.xcdatamodel; sourceTree = "<group>"; };
 		FAD4A0CC22EDE6A100DF7FBB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FAD4A0CF22EE294100DF7FBB /* DataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 			isa = PBXGroup;
 			children = (
 				FACAE99422E842EA005691FA /* Info.plist */,
-				FACD2F0922F172CC0037D230 /* Extension */,
 				FACAE99222E842EA005691FA /* ImageGalleryTests.swift */,
 				FAD4A0CF22EE294100DF7FBB /* DataManagerTests.swift */,
 				FAD4A0D122EE296300DF7FBB /* AlbumsStorageTests.swift */,
@@ -272,14 +269,6 @@
 				FACAE9D022EB08C2005691FA /* DataManager.swift */,
 			);
 			path = DataManager;
-			sourceTree = "<group>";
-		};
-		FACD2F0922F172CC0037D230 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				FACD2F0A22F172EB0037D230 /* XCTestCaseExtension.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +429,6 @@
 				FAD4A0D222EE296300DF7FBB /* AlbumsStorageTests.swift in Sources */,
 				FACAE99322E842EA005691FA /* ImageGalleryTests.swift in Sources */,
 				FAD4A0D022EE294100DF7FBB /* DataManagerTests.swift in Sources */,
-				FACD2F0B22F172EB0037D230 /* XCTestCaseExtension.swift in Sources */,
 				FAD4A0D422EE297600DF7FBB /* AlbumServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
