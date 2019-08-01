@@ -12,16 +12,30 @@ import Photos
 class AlbumDetailCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var photoLabel: UILabel!
+    
     var albumItem: Photo?
+    private var dataTask: URLSessionDataTask?
     
     func bindWith(albumItem: Photo) {
         self.photoLabel.text = albumItem.title
-        AlbumService.shared.getImage(imageURL: albumItem.imageURL) { [weak self] newImage, error in
+        
+        let task = AlbumService.shared.createImageTask(imageURL: albumItem.imageURL) { [weak self] newImage, error in
             if let image = newImage, error == nil {
                 self?.photoImage.image = image
             }
         }
         
+        task?.resume()
+        self.dataTask = task
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dataTask?.cancel()
+        dataTask = nil
+        
+        photoImage.image = UIImage(named: "imageDefault")
     }
 
 }
