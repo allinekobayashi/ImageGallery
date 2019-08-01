@@ -16,9 +16,9 @@ class AlbumDetailCollectionViewCell: UICollectionViewCell {
     
     func bindWith(albumItem: Photo) {
         self.photoLabel.text = albumItem.title
-        AlbumService.shared.getImage(imageURL: albumItem.imageURL) { newImage, error in
+        AlbumService.shared.getImage(imageURL: albumItem.imageURL) { [weak self] newImage, error in
             if let image = newImage, error == nil {
-                self.photoImage.image = image
+                self?.photoImage.image = image
             }
         }
         

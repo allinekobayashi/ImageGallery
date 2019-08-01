@@ -15,12 +15,13 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     
     func bindWith(albumItem: Photo, albumID: Int) {
         self.albumID = albumID
-        AlbumService.shared.getImage(imageURL: albumItem.imageURL, completionHandler: { newImage, error in
+        
+        #warning("Strong reference cycle?")
+        AlbumService.shared.getImage(imageURL: albumItem.imageURL) { [weak self] newImage, error in
             if let image = newImage, error == nil {
-                self.photoImage.image = image
+                self?.photoImage.image = image
             }
-            
-        })
+        }
         
     }
     
