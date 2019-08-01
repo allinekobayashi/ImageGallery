@@ -27,6 +27,7 @@ class AlbumService {
     init() {
     }
     
+    #warning("5. Simpler way of doing cache")
     /*Another solution for caching: */
 //    private var session: URLSession {
 //        let config = URLSessionConfiguration.default

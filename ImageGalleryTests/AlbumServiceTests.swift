@@ -61,6 +61,7 @@ class AlbumServiceTests: XCTestCase {
         XCTAssertEqual(photos[1].imageURL, "thumbnailURL photo 2")
     }
     
+    #warning("1. Async test: expectation")
     func testFetchAlbumsForUser() {
         //1. Given
         let expectation = self.expectation(description: "Async call Albums")
@@ -118,6 +119,7 @@ class AlbumServiceTests: XCTestCase {
 }
 
 class AlbumServiceMock: AlbumService {
+    #warning("1. Tests with singletons")
     static let sharedMock = AlbumServiceMock()
     
     override init() {

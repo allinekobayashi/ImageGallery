@@ -18,13 +18,14 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         
         self.albumID = albumID
         
-        #warning("Strong reference cycle?")
+        #warning("3. Strong reference cycle")
         let task = AlbumService.shared.createImageTask(imageURL: albumItem.imageURL) { [weak self] newImage, error in
             if let image = newImage, error == nil {
                 self?.photoImage.image = image
             }
         }
         
+        #warning("2. Background task (I was blocking the main thread -> white screen)")
         DispatchQueue.global(qos: .background).async {
             task?.resume()
         }
@@ -32,7 +33,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         self.dataTask = task
     }
     
-    #warning("Stoping request")
+    #warning("4. Stoping request")
     override func prepareForReuse() {
         super.prepareForReuse()
         
